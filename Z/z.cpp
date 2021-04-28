@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <memory>
 using namespace std;
 class Solution {
     public:
@@ -42,6 +43,6 @@ class Solution {
 };
 int main()
 {
-    Solution *test = new Solution("abcdefghi");
+    unique_ptr<Solution> test(new Solution("abcdefghi"));
     std::cout << test->convert(2) << std::endl;
 }
