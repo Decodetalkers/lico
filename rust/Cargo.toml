@@ -1,0 +1,19 @@
+[package]
+name = "lico"
+version = "0.0.1"
+authors = ["cht"]
+edition = "2018"
+
+[dependencies]
+
+[[bin]]
+name = "max_water"
+path = "bin/max_water.rs"
+
+[[bin]]
+name = "maxnum_fenzhi"
+path = "bin/maxnum_fenzhi.rs"
+
+[[bin]]
+name = "maxnum_tanxin"
+path = "bin/maxnum_tanxin.rs"
