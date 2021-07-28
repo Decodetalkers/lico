@@ -17,3 +17,7 @@ path = "bin/maxnum_fenzhi.rs"
 [[bin]]
 name = "maxnum_tanxin"
 path = "bin/maxnum_tanxin.rs"
+
+[[bin]]
+name = "list"
+path = "bin/list.rs"

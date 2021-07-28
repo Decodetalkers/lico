@@ -4,3 +4,4 @@ Cargo.lock
 ./rust/target
 target
 Cargo.lock
+rusty-tags.vi
