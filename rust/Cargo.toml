@@ -25,3 +25,7 @@ path = "bin/list.rs"
 [[bin]]
 name = "luoma"
 path = "bin/luoma.rs"
+
+[[bin]]
+name = "same"
+path = "bin/same.rs"

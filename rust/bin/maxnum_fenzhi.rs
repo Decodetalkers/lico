@@ -64,7 +64,9 @@ impl Status {
 }
 
 fn main() {
-    let money: Vec<i32> = vec![-5,8,-5,1,1,-3,5,5,-3,-3,6,4,-7,-4,-8,0,-1,-6];
+    let money: Vec<i32> = vec![
+        -5, 8, -5, 1, 1, -3, 5, 5, -3, -3, 6, 4, -7, -4, -8, 0, -1, -6,
+    ];
     let output = Status::new();
     println!("{}", output.max_sub_array(money));
 }
