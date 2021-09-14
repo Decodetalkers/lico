@@ -14,10 +14,8 @@ impl Status{
         for num in nums{
             if self.forward >=0{
                 self.forward += num;
-            } else {
-                if self.forward<num{
-                    self.forward=num;
-                }
+            } else if self.forward<num{
+                self.forward=num;
             }
             if self.forward>self.maxium{
                 self.maxium = self.forward;

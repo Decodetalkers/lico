@@ -21,3 +21,7 @@ path = "bin/maxnum_tanxin.rs"
 [[bin]]
 name = "list"
 path = "bin/list.rs"
+
+[[bin]]
+name = "luoma"
+path = "bin/luoma.rs"

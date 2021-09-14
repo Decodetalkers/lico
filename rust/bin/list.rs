@@ -25,7 +25,7 @@ impl List {
                 format!("{},{}",head,tail.stringify())
             },
             Nil => {
-                format!("Nil")
+                "Nil".to_string()
             },
         }
     }
