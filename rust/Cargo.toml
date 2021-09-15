@@ -29,3 +29,7 @@ path = "bin/luoma.rs"
 [[bin]]
 name = "same"
 path = "bin/same.rs"
+
+[[bin]]
+name = "three"
+path = "bin/three.rs"
