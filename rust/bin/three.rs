@@ -27,13 +27,13 @@ impl Solution {
                 }
             }
             let len = copy.len();
-            copy.sort();
+            copy.sort_unstable();
             for i in 0..len {
                 if copy[i] > 0 {
                     break;
                 }
                 for j in i + 1..len {
-                    let code = -1 * (copy[i] + copy[j]);
+                    let code = -(copy[i] + copy[j]);
                     if code > copy[j] && map.contains_key(&code) {
                         output.push(vec![copy[i], copy[j], code]);
                     }

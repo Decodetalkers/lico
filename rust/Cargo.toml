@@ -33,3 +33,7 @@ path = "bin/same.rs"
 [[bin]]
 name = "three"
 path = "bin/three.rs"
+
+[[bin]]
+name = "three2"
+path = "bin/three2.rs"
