@@ -49,3 +49,7 @@ path = "bin/numberzuhe2.rs"
 [[bin]]
 name = "lists"
 path = "bin/lists.rs"
+
+[[bin]]
+name = "kuohao"
+path = "bin/kuohao.rs"
