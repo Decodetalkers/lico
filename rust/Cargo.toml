@@ -37,3 +37,15 @@ path = "bin/three.rs"
 [[bin]]
 name = "three2"
 path = "bin/three2.rs"
+
+[[bin]]
+name = "numberzuhe"
+path = "bin/numberzuhe.rs"
+
+[[bin]]
+name = "numberzuhe2"
+path = "bin/numberzuhe2.rs"
+
+[[bin]]
+name = "lists"
+path = "bin/lists.rs"

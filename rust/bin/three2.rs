@@ -61,5 +61,8 @@ fn abs(a: i32, b: i32) -> i32 {
     a - b
 }
 fn main() {
-    println!("{}", Solution::three_sum_closest(vec![-100,-98,-2,-1], -101));
+    println!(
+        "{}",
+        Solution::three_sum_closest(vec![-100, -98, -2, -1], -101)
+    );
 }
