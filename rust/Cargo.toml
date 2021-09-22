@@ -53,3 +53,7 @@ path = "bin/lists.rs"
 [[bin]]
 name = "kuohao"
 path = "bin/kuohao.rs"
+
+[[bin]]
+name = "guangdu"
+path = "bin/guangdu.rs"
