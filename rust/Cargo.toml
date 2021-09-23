@@ -57,3 +57,11 @@ path = "bin/kuohao.rs"
 [[bin]]
 name = "guangdu"
 path = "bin/guangdu.rs"
+
+[[bin]]
+name = "word"
+path = "bin/word.rs"
+
+[[bin]]
+name = "word2"
+path = "bin/word2.rs"

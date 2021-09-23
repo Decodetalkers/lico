@@ -1,56 +1,3 @@
-#[derive(Clone)]
-enum List {
-    Cons(String, Box<List>),
-    Nil,
-}
-use List::*;
-impl List {
-    fn new() -> Self {
-        Nil
-    }
-
-    fn prepend(self, elem: String) -> Self {
-        Cons(elem, Box::new(self))
-    }
-
-    fn len(&self) -> u32 {
-        match *self {
-            Cons(_, ref tail) => 1 + tail.len(),
-            Nil => 0,
-        }
-    }
-
-    fn stringify(&self) -> String {
-        match *self {
-            Cons(ref head, ref tail) => {
-                format!("{},{}", head.clone(), tail.stringify())
-            }
-            Nil => "Nil".to_string(),
-        }
-    }
-    fn to_vec(&self) -> Vec<String> {
-        let mut output = vec![];
-        if let Cons(ref head, ref tail) = *self {
-            let mut temp = tail.to_vec();
-            output.append(&mut temp);
-            output.push(head.to_string());
-        }
-        output
-    }
-}
-type ListVec = Vec<List>;
-trait IntoVec {
-    fn into_vec(&self) -> Vec<Vec<String>>;
-}
-impl IntoVec for ListVec {
-    fn into_vec(&self) -> Vec<Vec<String>> {
-        let mut output = vec![];
-        for avec in self {
-            output.push(avec.to_vec())
-        }
-        output
-    }
-}
 struct Solution;
 impl Solution {
     pub fn find_ladders(
@@ -64,87 +11,129 @@ impl Solution {
                 before.remove(i);
             }
         }
-        let mut list = List::new();
-        list = list.prepend(begin_word);
-        find_ladders_before(vec![list], end_word, before).into_vec()
+        find_ladders_before(vec![begin_word.clone()], end_word, vec![before], vec![]).0
     }
 }
 fn find_ladders_before(
-    begin_words: Vec<List>,
+    begin_words: Vec<String>,
     end_word: String,
-    word_list: Vec<String>,
-) -> Vec<List> {
-    if word_list.is_empty() {
-        return vec![];
-    }
-    let mut word_list2 = word_list.clone();
-
-    let mut stop_vec = vec![];
-    let mut next_vec = vec![];
-    let mut to_remove = vec![];
-    for begin_word in begin_words {
-        if let Cons(ref head, _) = begin_word {
-            for (i, astring) in word_list.iter().enumerate() {
-                let mut count = 0;
-                let mut is_same = true;
-                for (a, (b, c)) in head
-                    .clone()
-                    .chars()
-                    .zip(astring.chars().zip(end_word.clone().chars()))
-                {
-                    if a != b {
-                        count += 1;
-                    }
-                    if b != c {
-                        is_same = false;
+    word_lists: Vec<Vec<String>>,
+    see_before: Vec<String>,
+) -> (Vec<Vec<String>>, Vec<i32>) {
+    let mut counts = see_before.clone();
+    let mut astrings = vec![];
+    let mut nexts = vec![];
+    let mut output: Vec<Vec<String>> = vec![];
+    //let mut begin_world_record = vec![];
+    // 记录分裂次数
+    let mut local_split: Vec<i32> = vec![];
+    //let mut zero: i32 = 0;
+    //let mut upper_split:Vec<i32> = vec![];
+    for (word_list, begin_word) in word_lists.iter().zip(begin_words.iter()) {
+        let mut show_count = 0;
+        for (i, astring) in word_list.iter().enumerate() {
+            let mut count = 0;
+            let mut is_same = true;
+            for (a, (b, c)) in begin_word
+                .chars()
+                .zip(astring.chars().zip(end_word.chars()))
+            {
+                if a != b {
+                    count += 1;
+                }
+                if b != c {
+                    is_same = false;
+                }
+            }
+            if count == 1 {
+                let mut have_seen = false;
+                for j in &see_before {
+                    if *astring == **j && !is_same {
+                        have_seen = true;
                     }
                 }
-                if count == 1 {
+                if !have_seen {
+                    show_count += 1;
+                    //begin_world_record.push(begin_word.clone());
                     if is_same {
-                        let mut list = begin_word.clone();
-                        list = list.prepend(end_word.clone());
-                        stop_vec.push(list);
+                        output.push(vec![end_word.clone()]);
                     } else {
-                        let mut list = begin_word.clone();
-                        list = list.prepend(astring.to_string());
-                        next_vec.push(list);
+                        counts.push(astring.clone());
+                        let mut next = word_list.clone();
+                        next.remove(i);
+                        astrings.push(astring.clone());
+                        nexts.push(next);
                     }
-                    to_remove.push(i);
                 }
             }
         }
+        local_split.push(show_count);
     }
-    to_remove.sort();
-    to_remove.reverse();
-    let mut to_remove2 = vec![];
-    let mut temp = -1;
-    for i in to_remove {
-        if temp != i as i32 {
-            to_remove2.push(i);
-            temp = i as i32;
+
+    //for (astring, next) in astrings.iter().zip(nexts.into_iter()) {
+    let mut temp = vec![];
+    let mut down_split: Vec<i32> = vec![];
+    if !astrings.is_empty() {
+        let a = find_ladders_before(astrings, end_word.clone(), nexts, counts.clone());
+        temp = a.0;
+        down_split = a.1;
+    }
+    let mut grand_split: Vec<i32> = local_split.clone();
+    println!("{:?},{:?}", begin_words, word_lists);
+    println!("{:?},{:?}", down_split, local_split);
+    if !down_split.is_empty() {
+        grand_split.clear();
+        let mut position = 0;
+        for a in local_split.iter() {
+            let mut len = 0;
+            for i in position..position + a {
+                len += down_split[i as usize];
+            }
+            position += a;
+            grand_split.push(len);
         }
     }
-    for i in to_remove2 {
-        word_list2.remove(i);
+    if !temp.is_empty() {
+        output.append(&mut temp);
     }
-    if !stop_vec.is_empty() {
-        return stop_vec;
-    } else if next_vec.is_empty() {
-        return vec![];
-    } else {
-        return find_ladders_before(next_vec, end_word, word_list2);
+    //}
+    let mut output2: Vec<Vec<String>> = vec![];
+    let mut minlen = 0;
+    for answer in output.iter() {
+        if minlen == 0 || minlen > answer.len() {
+            minlen = answer.len();
+            output2.clear();
+        }
+        if minlen == answer.len() {
+            output2.push(answer.clone());
+        }
     }
-    //vec![]
+    let mut begin_world_record: Vec<String> = vec![];
+    for (word, count) in begin_words.iter().zip(grand_split.clone()) {
+        for _ in 0..count {
+            begin_world_record.push(word.clone());
+        }
+    }
+    //let mut output3 =  vec![];
+    if !output2.is_empty() {
+        //for begin_word in begin_words.iter() {
+        //    //let temp = vec![vec![a]];
+        //    for a in output2.iter() {
+        //        let mut temp2 = a.clone();
+        //        temp2.insert(0, begin_word.clone());
+        //        output3.push(temp2);
+        //    }
+        //}
+        //
+        for (a, begin_word) in output2.iter_mut().zip(begin_world_record.iter()) {
+            a.insert(0, begin_word.clone());
+        }
+    }
+    //println!("{:?}",output3);
+    //println!("ss");
+    (output2, grand_split)
 }
-fn main() {
-    let mut list = List::new();
-    list = list.prepend(1.to_string());
-    list = list.prepend(2.to_string());
-    list = list.prepend(3.to_string());
-
-    println!("linked list has length:{}", list.len());
-    println!("{}", list.stringify());
-    println!("{:?}", list.to_vec());
+pub fn main() {
     println!(
         "{:?}",
         Solution::find_ladders(
@@ -279,28 +268,6 @@ fn main() {
                 "sq".to_string(),
                 "ye".to_string()
             ]
-        )
-    );
-    println!(
-        "{:?}",
-        Solution::find_ladders(
-            "hit".to_string(),
-            "cog".to_string(),
-            vec![
-                "hot".to_string(),
-                "dot".to_string(),
-                "dog".to_string(),
-                "lot".to_string(),
-                "log".to_string(),
-            ]
-        )
-    );
-    println!(
-        "{:?}",
-        Solution::find_ladders(
-            "hot".to_string(),
-            "dog".to_string(),
-            vec!["hot".to_string(), "dog".to_string(),]
         )
     );
 }

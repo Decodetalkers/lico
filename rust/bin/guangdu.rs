@@ -68,7 +68,7 @@ impl Solution {
                 new_root.borrow().left.clone(),
                 new_root.borrow().right.clone(),
             ]);
-            if !temp.is_empty(){
+            if !temp.is_empty() {
                 output.append(&mut temp);
             }
             output.push(vec![new_root.borrow().val]);
@@ -92,10 +92,10 @@ fn level_order_bottom_under(roots: Vec<Option<Rc<RefCell<TreeNode>>>>) -> Vec<Ve
             storage.push(right);
         }
     }
-    if !storage.is_empty(){
+    if !storage.is_empty() {
         output.append(&mut level_order_bottom_under(storage));
     }
-    if !temp.is_empty(){
+    if !temp.is_empty() {
         output.push(temp);
     }
     output
