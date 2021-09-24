@@ -11,7 +11,7 @@ impl Solution {
                 before.remove(i);
             }
         }
-        find_ladders_before(vec![begin_word.clone()], end_word, vec![before], vec![]).0
+        find_ladders_before(vec![begin_word], end_word, vec![before], vec![]).0
     }
 }
 fn find_ladders_before(
@@ -74,7 +74,7 @@ fn find_ladders_before(
     let mut temp = vec![];
     let mut down_split: Vec<i32> = vec![];
     if !astrings.is_empty() {
-        let a = find_ladders_before(astrings, end_word.clone(), nexts, counts.clone());
+        let a = find_ladders_before(astrings, end_word, nexts, counts.clone());
         temp = a.0;
         down_split = a.1;
     }

@@ -40,10 +40,10 @@ impl List {
 }
 type ListVec = Vec<List>;
 trait IntoVec {
-    fn into_vec(&self) -> Vec<Vec<String>>;
+    fn as_vec(&self) -> Vec<Vec<String>>;
 }
 impl IntoVec for ListVec {
-    fn into_vec(&self) -> Vec<Vec<String>> {
+    fn as_vec(&self) -> Vec<Vec<String>> {
         let mut output = vec![];
         for avec in self {
             output.push(avec.to_vec())
@@ -66,7 +66,7 @@ impl Solution {
         }
         let mut list = List::new();
         list = list.prepend(begin_word);
-        find_ladders_before(vec![list], end_word, before).into_vec()
+        find_ladders_before(vec![list], end_word, before).as_vec()
     }
 }
 fn find_ladders_before(
@@ -114,7 +114,7 @@ fn find_ladders_before(
             }
         }
     }
-    to_remove.sort();
+    to_remove.sort_unstable();
     to_remove.reverse();
     let mut to_remove2 = vec![];
     let mut temp = -1;
@@ -128,11 +128,11 @@ fn find_ladders_before(
         word_list2.remove(i);
     }
     if !stop_vec.is_empty() {
-        return stop_vec;
+        stop_vec
     } else if next_vec.is_empty() {
-        return vec![];
+        vec![]
     } else {
-        return find_ladders_before(next_vec, end_word, word_list2);
+        find_ladders_before(next_vec, end_word, word_list2)
     }
     //vec![]
 }
