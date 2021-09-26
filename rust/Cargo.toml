@@ -69,3 +69,11 @@ path = "bin/word2.rs"
 [[bin]]
 name = "list3"
 path = "bin/list3.rs"
+
+[[bin]]
+name = "str"
+path = "bin/str.rs"
+
+[[bin]]
+name = "max_list"
+path = "bin/max_list.rs"
