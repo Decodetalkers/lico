@@ -77,3 +77,19 @@ path = "bin/str.rs"
 [[bin]]
 name = "max_list"
 path = "bin/max_list.rs"
+
+[[bin]]
+name = "partition"
+path = "bin/partition.rs"
+
+[[bin]]
+name = "arround"
+path = "bin/arround.rs"
+
+[[bin]]
+name = "arround2"
+path = "bin/arround2.rs"
+
+[[bin]]
+name = "root_leaf"
+path = "bin/root_leaf.rs"
