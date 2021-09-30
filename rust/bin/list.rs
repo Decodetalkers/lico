@@ -1,3 +1,4 @@
+// 广度优先
 #[derive(Clone)]
 enum List {
     Cons(String, Box<List>),

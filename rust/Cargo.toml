@@ -93,3 +93,19 @@ path = "bin/arround2.rs"
 [[bin]]
 name = "root_leaf"
 path = "bin/root_leaf.rs"
+
+[[bin]]
+name = "road"
+path = "bin/road.rs"
+
+[[bin]]
+name = "candy"
+path = "bin/candy.rs"
+
+[[bin]]
+name = "wei"
+path = "bin/wei.rs"
+
+[[bin]]
+name = "word_break"
+path = "bin/word_break.rs"
