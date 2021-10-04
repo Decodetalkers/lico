@@ -109,3 +109,7 @@ path = "bin/wei.rs"
 [[bin]]
 name = "word_break"
 path = "bin/word_break.rs"
+
+[[bin]]
+name = "neokuohao"
+path = "bin/neokuohao.rs"

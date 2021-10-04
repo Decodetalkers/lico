@@ -18,9 +18,9 @@ impl Solution {
                 if down.is_empty() {
                     local.push(vec![temp.clone()]);
                 } else {
-                    for mut a in down.iter_mut() {
+                    for a in down.iter_mut() {
                         let mut temp = vec![temp.clone()];
-                        temp.append(&mut a);
+                        temp.append(a);
                         local.push(temp);
                     }
                 }
